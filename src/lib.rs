@@ -26,6 +26,31 @@ pub fn generate_password(
         ));
     }
 
+    let charset = build_charset(
+        include_upper_case,
+        include_lower_case,
+        include_numbers,
+        include_symbols,
+    );
+
+    let mut rng = rand::thread_rng();
+    let die = Uniform::from(0..charset.len() - 2);
+    let mut password = "".to_owned();
+    for _n in 1..password_length + 1 {
+        let throw = die.sample(&mut rng);
+        let mut char = charset.chars();
+        let char = char.nth(throw).unwrap();
+        password = format!("{}{}", password, char);
+    }
+    return Ok(password);
+}
+
+fn build_charset(
+    include_upper_case: bool,
+    include_lower_case: bool,
+    include_numbers: bool,
+    include_symbols: bool,
+) -> String {
     let low_case = "abcdefghijklmnopqrstuvxyz";
     let up_case = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
     let numbers = "0123456789";
@@ -48,17 +73,7 @@ pub fn generate_password(
     if include_symbols {
         all = format!("{}{}", all, symbols);
     }
-
-    let mut rng = rand::thread_rng();
-    let die = Uniform::from(0..all.len() - 2);
-    let mut password = "".to_owned();
-    for _n in 1..password_length + 1 {
-        let throw = die.sample(&mut rng);
-        let mut char = all.chars();
-        let char = char.nth(throw).unwrap();
-        password = format!("{}{}", password, char);
-    }
-    return Ok(password);
+    all
 }
 
 pub fn generate_mnemonic_password(password_length: i32) -> Result<String, SimplePassGenError> {

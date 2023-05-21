@@ -33,3 +33,5 @@ or
   let result = generate_mnemonic_password(5);
   println!("{}", result.unwrap());
 ```
+
+p.s. this is my first library on crates.io :)
