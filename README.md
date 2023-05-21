@@ -4,7 +4,7 @@ Simple Pass Gen is a Rust library for password generation.
 # How to use it?
 In order to use it first of all add simple-pass-gen to your toml file:
 ```
-simple-pass-gen = "0.1.2"
+simple-pass-gen = "0.1.5"
 ```
 
 Then call one of two available functions:
@@ -25,13 +25,14 @@ pub fn generate_mnemonic_password(password_length: i32)
 
 # Example
 ```
-  let result = generate_password(5, true, true, true, false);
-  println!("{}", result.unwrap());
-```
-or
-```
-  let result = generate_mnemonic_password(5);
-  println!("{}", result.unwrap());
+use simple_pass_gen::generate_mnemonic_password;
+use simple_pass_gen::generate_password;
+
+fn main() {
+    println!("{}", generate_mnemonic_password(5).unwrap());
+
+    println!("{}", generate_password(5, true, true, true, false).unwrap());
+}
 ```
 
 p.s. this is my first library on crates.io :)
