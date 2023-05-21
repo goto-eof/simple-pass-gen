@@ -3,6 +3,8 @@ name = "simple-pass-gen"
 version = "0.1.0"
 edition = "2021"
 authors = ["Andrei Dodu"]
+license = "MIT"
+description = "Simple password generator is a password generator library."
 
 [dependencies]
 rand = "0.8.5"
