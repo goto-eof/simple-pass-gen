@@ -1,5 +1,5 @@
 # Simple Pass Gen 
-Simple Pass Gen is a simple password generator library.
+Simple Pass Gen is a simple password generator library (source code can be found ![here](https://github.com/goto-eof/simple-pass-gen)).
 
 # How to use it?
 In order to use it first of all add simple-pass-gen to your Cargo.toml file:
@@ -17,7 +17,7 @@ pub fn generate_password(
     include_symbols: bool,
 ) -> Result<String, SimplePassGenError>;
 ```
-or if you want to generate a easy to remember password
+or if you want to generate an easy to remember password
 ```
 pub fn generate_mnemonic_password(password_length: i32) 
 -> Result<String, SimplePassGenError>
