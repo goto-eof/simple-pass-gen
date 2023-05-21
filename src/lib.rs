@@ -15,22 +15,29 @@ impl SimplePassGenError {
 
 pub fn generate_password(
     password_length: i32,
-    include_upper_case: bool,
-    include_lower_case: bool,
-    include_numbers: bool,
-    include_symbols: bool,
+    include_upper_case_charset: bool,
+    include_lower_case_charset: bool,
+    include_numbers_charset: bool,
+    include_symbols_charset: bool,
 ) -> Result<String, SimplePassGenError> {
-    if !include_upper_case && !include_lower_case && !include_numbers && !include_symbols {
+    if password_length <= 0 || password_length > 256 {
+        return Err(SimplePassGenError::new("invalid password length"));
+    }
+    if !include_upper_case_charset
+        && !include_lower_case_charset
+        && !include_numbers_charset
+        && !include_symbols_charset
+    {
         return Err(SimplePassGenError::new(
             "at leas one charset should be enabled",
         ));
     }
 
-    let charset = build_charset(
-        include_upper_case,
-        include_lower_case,
-        include_numbers,
-        include_symbols,
+    let charset = build_final_charset(
+        include_upper_case_charset,
+        include_lower_case_charset,
+        include_numbers_charset,
+        include_symbols_charset,
     );
 
     let mut rng = rand::thread_rng();
@@ -45,11 +52,11 @@ pub fn generate_password(
     return Ok(password);
 }
 
-fn build_charset(
-    include_upper_case: bool,
-    include_lower_case: bool,
-    include_numbers: bool,
-    include_symbols: bool,
+fn build_final_charset(
+    include_upper_case_charset: bool,
+    include_lower_case_charset: bool,
+    include_numbers_charset: bool,
+    include_symbols_charset: bool,
 ) -> String {
     let low_case = "abcdefghijklmnopqrstuvxyz";
     let up_case = "ABCDEFGHIJKLMNOPQRSTUVXYZ";
@@ -58,25 +65,28 @@ fn build_charset(
 
     let mut all = "".to_owned();
 
-    if include_upper_case {
+    if include_upper_case_charset {
         all = format!("{}{}", all, up_case);
     }
 
-    if include_lower_case {
+    if include_lower_case_charset {
         all = format!("{}{}", all, low_case);
     }
 
-    if include_numbers {
+    if include_numbers_charset {
         all = format!("{}{}", all, numbers);
     }
 
-    if include_symbols {
+    if include_symbols_charset {
         all = format!("{}{}", all, symbols);
     }
     all
 }
 
 pub fn generate_mnemonic_password(password_length: i32) -> Result<String, SimplePassGenError> {
+    if password_length <= 0 || password_length > 256 {
+        return Err(SimplePassGenError::new("invalid password length"));
+    }
     let consonants_lc = "bcdfghjklmnpqrstuvxyz";
     let vowels_lc = "aeiou";
 
@@ -122,6 +132,24 @@ mod tests {
     #[test]
     fn should_fail_if_no_charset_selected() {
         let result = generate_password(5, false, false, false, false);
+        assert_eq!(result.is_err(), true);
+    }
+
+    #[test]
+    fn should_fail_if_password_length_is_invalid() {
+        let result = generate_password(0, false, false, false, false);
+        assert_eq!(result.is_err(), true);
+    }
+
+    #[test]
+    fn should_fail_if_mnemonic_password_length_is_invalid() {
+        let result = generate_mnemonic_password(0);
+        assert_eq!(result.is_err(), true);
+    }
+
+    #[test]
+    fn should_fail_if_mnemonic_password_length_is_invalid_greater_than() {
+        let result = generate_mnemonic_password(257);
         assert_eq!(result.is_err(), true);
     }
 
