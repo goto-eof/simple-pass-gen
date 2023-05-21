@@ -2,9 +2,9 @@
 Simple Pass Gen is a Rust library for password generation.
 
 # How to use it?
-In order to use it first of all add simple-pass-gen to youre toml file:
+In order to use it first of all add simple-pass-gen to your toml file:
 ```
-simple-pass-gen = "0.1.0"
+simple-pass-gen = "0.1.2"
 ```
 
 Then call one of two available functions:
@@ -19,7 +19,8 @@ pub fn generate_password(
 ```
 or 
 ```
-pub fn generate_mnemonic_password(password_length: i32) -> Result<String, SimplePassGenError>
+pub fn generate_mnemonic_password(password_length: i32) 
+-> Result<String, SimplePassGenError>
 ```
 
 # Example
