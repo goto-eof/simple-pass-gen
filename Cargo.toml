@@ -1,10 +1,10 @@
 [package]
 name = "simple-pass-gen"
-version = "0.1.5"
+version = "0.1.7"
 edition = "2021"
 authors = ["Andrei Dodu"]
 license = "MIT"
-description = "Simple password generator is a password generator library."
+description = "Simple-Pass-Gen is a password generator library."
 
 [dependencies]
 rand = "0.8.5"

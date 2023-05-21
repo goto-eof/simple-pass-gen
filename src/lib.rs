@@ -1,17 +1,8 @@
 use rand::distributions::Uniform;
 use rand::prelude::Distribution;
+use structs::SimplePassGenError;
 
-#[derive(Debug)]
-pub struct SimplePassGenError {
-    pub message: String,
-}
-impl SimplePassGenError {
-    pub fn new(message: &str) -> Self {
-        Self {
-            message: message.to_owned(),
-        }
-    }
-}
+mod structs;
 
 pub fn generate_password(
     password_length: i32,
