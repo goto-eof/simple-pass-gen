@@ -4,7 +4,7 @@ Simple Pass Gen is a simple password generator library.
 # How to use it?
 In order to use it first of all add simple-pass-gen to your Cargo.toml file:
 ```
-simple-pass-gen = "0.1.7"
+simple-pass-gen = "0.1.8"
 ```
 
 Then call one of two available functions:
@@ -17,7 +17,7 @@ pub fn generate_password(
     include_symbols: bool,
 ) -> Result<String, SimplePassGenError>;
 ```
-or 
+or if you want to generate a easy to remember password
 ```
 pub fn generate_mnemonic_password(password_length: i32) 
 -> Result<String, SimplePassGenError>
@@ -37,4 +37,4 @@ fn main() {
 }
 ```
 
-p.s. this is my first library on crates.io :)
+p.s. this is my first library on crates.io (:

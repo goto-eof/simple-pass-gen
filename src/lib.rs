@@ -20,7 +20,7 @@ pub fn generate_password(
         && !include_symbols_charset
     {
         return Err(SimplePassGenError::new(
-            "at leas one charset should be enabled",
+            "at least one charset should be enabled",
         ));
     }
 
